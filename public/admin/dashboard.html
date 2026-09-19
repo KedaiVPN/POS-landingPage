@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard Admin — POS Kedai</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="256x256" href="/assets/img/favicon-256.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png" />
+<link rel="stylesheet" href="/assets/style.css?v=7" />
+<link rel="stylesheet" href="/assets/admin.css?v=7" />
+</head>
+<body class="admin-body">
+
+<!-- ── Top bar ── -->
+<header class="adm-topbar">
+  <div class="adm-topbar-inner">
+    <div class="adm-brand">
+      <img class="brand-mark brand-mark-img" src="/assets/img/logo-mark.png?v=2" alt="" width="146" height="120" decoding="async" />
+      <div>
+        <strong>POS Kedai</strong>
+        <small>Admin Dashboard</small>
+      </div>
+    </div>
+    <div class="adm-topbar-right">
+      <span class="adm-user">
+        <span class="adm-avatar" id="admAvatar">A</span>
+        <span id="admUser">admin</span>
+      </span>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn">Keluar</button>
+    </div>
+  </div>
+</header>
+
+<main class="adm-main">
+
+  <!-- ── Page head ── -->
+  <div class="adm-pagehead">
+    <div>
+      <h1>Data Pra-Registrasi</h1>
+      <p class="adm-sub">Daftar pengguna yang mendaftar lebih awal untuk akses POS Kedai.</p>
+    </div>
+    <div class="adm-actions">
+      <button class="btn btn-ghost" id="refreshBtn">
+        <span class="ico">⟳</span> Muat Ulang
+      </button>
+      <a class="btn btn-outline" id="emailTxtBtn" href="/api/admin/email/txt">
+        <span class="ico">✉️</span> Email (.txt)
+      </a>
+      <a class="btn btn-outline" id="emailCsvBtn" href="/api/admin/email/csv">
+        <span class="ico">✉️</span> Email (.csv)
+      </a>
+      <a class="btn btn-outline" id="emailXlsxBtn" href="/api/admin/email/xlsx">
+        <span class="ico">✉️</span> Email (.xlsx)
+      </a>
+      <a class="btn btn-outline" id="emailXlsBtn" href="/api/admin/email/xls">
+        <span class="ico">✉️</span> Email (.xls)
+      </a>
+      <a class="btn btn-primary" id="exportXlsxBtn" href="/api/admin/export/xlsx">
+        <span class="ico">📊</span> Data Lengkap .xlsx
+      </a>
+      <a class="btn btn-primary" id="exportXlsBtn" href="/api/admin/export/xls">
+        <span class="ico">📥</span> Data Lengkap .xls
+      </a>
+      <button class="btn btn-danger" id="purgeAllBtn">
+        <span class="ico">🗑</span> Hapus Semua Data
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Stat cards ── -->
+  <section class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-ico teal">👥</div>
+      <div>
+        <small>Total Pendaftar</small>
+        <strong id="stTotal">—</strong>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-ico amber">📅</div>
+      <div>
+        <small>Hari Ini</small>
+        <strong id="stToday">—</strong>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-ico sky">📈</div>
+      <div>
+        <small>7 Hari Terakhir</small>
+        <strong id="stWeek">—</strong>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-ico violet">🏙️</div>
+      <div>
+        <small>Kota Teratas</small>
+        <strong id="stCity">—</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Toolbar ── -->
+  <section class="adm-card">
+    <div class="adm-toolbar">
+      <div class="adm-search">
+        <span class="ico">🔍</span>
+        <input type="search" id="searchInput" placeholder="Cari Gmail, nama, toko, atau nomor…" />
+      </div>
+      <div class="adm-dates">
+        <label>
+          <span>Dari</span>
+          <input type="date" id="fromDate" />
+        </label>
+        <label>
+          <span>Sampai</span>
+          <input type="date" id="toDate" />
+        </label>
+      </div>
+      <div class="adm-perpage">
+        <label>
+          <span>Baris</span>
+          <select id="perPage">
+            <option>10</option>
+            <option>25</option>
+            <option>50</option>
+            <option>100</option>
+            <option>200</option>
+          </select>
+        </label>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="resetFilter">Reset Filter</button>
+    </div>
+
+    <!-- ── Table ── -->
+    <div class="adm-tablewrap">
+      <table class="adm-table" id="regTable">
+        <thead>
+          <tr>
+            <th style="width:52px">#</th>
+            <th data-sort="gmail">Gmail <span class="sort-ind"></span></th>
+            <th data-sort="full_name">Nama Lengkap <span class="sort-ind"></span></th>
+            <th data-sort="store_name">Nama Toko <span class="sort-ind"></span></th>
+            <th data-sort="phone">WhatsApp <span class="sort-ind"></span></th>
+            <th data-sort="city">Kota <span class="sort-ind"></span></th>
+            <th data-sort="created_at">Tanggal Daftar <span class="sort-ind"></span></th>
+            <th style="width:96px">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="regBody">
+          <tr><td colspan="8" class="adm-empty">Memuat data…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── Pagination ── -->
+    <div class="adm-pager">
+      <span class="adm-count" id="pagerInfo">—</span>
+      <div class="adm-pager-btns">
+        <button class="btn btn-ghost btn-sm" id="prevPage">← Sebelumnya</button>
+        <span class="adm-pagenum" id="pageNum">1 / 1</span>
+        <button class="btn btn-ghost btn-sm" id="nextPage">Berikutnya →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Recent logins ── -->
+  <section class="adm-card">
+    <div class="adm-cardhead">
+      <h2>Riwayat Login Admin</h2>
+      <small class="muted">20 percobaan terakhir</small>
+    </div>
+    <div class="adm-tablewrap">
+      <table class="adm-table compact">
+        <thead>
+          <tr><th>Waktu</th><th>Username</th><th>IP</th><th>Status</th></tr>
+        </thead>
+        <tbody id="loginBody">
+          <tr><td colspan="4" class="adm-empty">Memuat…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Toast ── -->
+<div class="adm-toast" id="toast" hidden></div>
+
+<!-- ── Confirm modal: hapus satu ── -->
+<div class="adm-modal" id="confirmModal" hidden>
+  <div class="adm-modal-box">
+    <h3>Hapus data ini?</h3>
+    <p id="confirmText">Data pra-registrasi akan dihapus permanen.</p>
+    <div class="adm-modal-actions">
+      <button class="btn btn-ghost" id="cancelDelete">Batal</button>
+      <button class="btn btn-danger" id="confirmDelete">Ya, Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Confirm modal: hapus semua ── -->
+<div class="adm-modal" id="purgeModal" hidden>
+  <div class="adm-modal-box">
+    <h3>Hapus SEMUA data pra-registrasi?</h3>
+    <p id="purgeText">Seluruh data pendaftar akan dihapus permanen dan tidak bisa dikembalikan.</p>
+    <div class="adm-modal-actions">
+      <button class="btn btn-ghost" id="cancelPurge">Batal</button>
+      <button class="btn btn-danger" id="confirmPurge">Ya, Hapus Semua</button>
+    </div>
+  </div>
+</div>
+
+<script src="/assets/admin-dashboard.js?v=7"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "pos-kedai-landing",
+  "version": "1.0.0",
+  "description": "Landing page pra-registrasi + admin dashboard untuk aplikasi POS Kedai",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node test/e2e.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "keywords": [
+    "pos",
+    "landing-page",
+    "preregistrasi",
+    "sqlite"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^18.0.0",
+    "exceljs": "^4.4.0",
+    "express": "^5.2.1",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  }
+}

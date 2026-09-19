@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login Admin — POS Kedai</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="256x256" href="/assets/img/favicon-256.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png" />
+<link rel="stylesheet" href="/assets/style.css?v=7" />
+<link rel="stylesheet" href="/assets/admin.css?v=7" />
+</head>
+<body class="admin-body login-body">
+
+<div class="login-shell">
+  <div class="login-card">
+    <div class="login-head">
+      <img class="brand-mark brand-mark-img" src="/assets/img/logo-mark.png?v=2" alt="" width="146" height="120" decoding="async" />
+      <h1>Admin POS Kedai</h1>
+      <p>Masuk untuk mengelola data pra-registrasi.</p>
+    </div>
+
+    <form id="loginForm" novalidate autocomplete="on">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="username"
+               placeholder="admin" required autofocus />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="pass-wrap">
+          <input type="password" id="password" name="password" autocomplete="current-password"
+                 placeholder="••••••••" required />
+          <button type="button" class="pass-toggle" id="passToggle" aria-label="Tampilkan password">👁</button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block btn-lg" id="loginBtn">
+        <span class="btn-label">Masuk Dashboard</span>
+        <span class="spinner" hidden></span>
+      </button>
+
+      <div class="form-alert" id="loginAlert" hidden></div>
+    </form>
+
+    <a class="back-link" href="/">← Kembali ke halaman utama</a>
+  </div>
+</div>
+
+<script src="/assets/admin-login.js"></script>
+</body>
+</html>
