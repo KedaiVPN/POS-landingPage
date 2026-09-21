@@ -215,26 +215,20 @@ p { margin: 0 0 1em; }
 .hero-stats span { font-size: .78rem; color: var(--slate-500); font-weight: 600; }
 .hero-stats .sep { width: 1px; height: 34px; background: var(--slate-200); }
 
-/* ─────────────── Phone mockup ─────────────── */
+/* ─────────────── Hero photo ─────────────── */
 .hero-visual { position: relative; display: grid; place-items: center; min-height: 460px; }
-.phone {
-  position: relative;
-  width: 292px; height: 580px;
-  background: linear-gradient(160deg, #1e293b, #0b1220);
-  border-radius: 40px;
-  padding: 11px;
-  box-shadow: 0 34px 70px rgba(11, 18, 32, .34), inset 0 0 0 1.5px rgba(255, 255, 255, .1);
+.hero-shot {
+  width: min(300px, 82vw);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 34px 70px rgba(11, 18, 32, .34);
   transform: rotate(-2.2deg);
+  line-height: 0;
 }
-.phone-notch {
-  position: absolute; top: 11px; left: 50%; transform: translateX(-50%);
-  width: 104px; height: 22px; background: #0b1220; border-radius: 0 0 14px 14px; z-index: 3;
-}
-.phone-screen {
-  height: 100%; border-radius: 31px; overflow: hidden;
-  background: var(--slate-50);
-  padding: 34px 14px 14px;
-  display: flex; flex-direction: column; gap: 10px;
+.hero-shot img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .float-card {
@@ -251,22 +245,6 @@ p { margin: 0 0 1em; }
 @media (max-width: 440px) {
   .float-1 { left: -2px; top: 20px; }
   .float-2 { right: -2px; bottom: 30px; }
-  .phone { width: 258px; height: 520px; }
-}
-
-/* ─────────────── Real screenshot phone frame ─────────────── */
-.phone-real .phone-screen-real {
-  padding: 0;
-  background: #000;
-  overflow: hidden;
-  border-radius: 30px;
-}
-.phone-screen-real img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  display: block;
 }
 
 /* ─────────────── Influencer / testimonial ─────────────── */
