@@ -218,7 +218,7 @@ p { margin: 0 0 1em; }
 /* ─────────────── Hero photo ─────────────── */
 .hero-visual { position: relative; display: grid; place-items: center; min-height: 460px; }
 .hero-shot {
-  width: min(300px, 82vw);
+  width: min(268px, 74vw);
   transform: rotate(-2.2deg);
   line-height: 0;
 }
