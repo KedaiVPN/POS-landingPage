@@ -219,9 +219,6 @@ p { margin: 0 0 1em; }
 .hero-visual { position: relative; display: grid; place-items: center; min-height: 460px; }
 .hero-shot {
   width: min(300px, 82vw);
-  border-radius: 22px;
-  overflow: hidden;
-  box-shadow: 0 34px 70px rgba(11, 18, 32, .34);
   transform: rotate(-2.2deg);
   line-height: 0;
 }
@@ -229,6 +226,9 @@ p { margin: 0 0 1em; }
   width: 100%;
   height: auto;
   display: block;
+  /* gambar punya rounded corner + transparansi sendiri (webp alpha):
+     pakai drop-shadow agar shadow mengikuti bentuk, bukan kotak */
+  filter: drop-shadow(0 24px 50px rgba(11, 18, 32, .32));
 }
 
 .float-card {
